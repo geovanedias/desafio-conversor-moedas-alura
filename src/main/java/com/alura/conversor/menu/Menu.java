@@ -1,51 +1,93 @@
 package com.alura.conversor.menu;
 
+import com.alura.conversor.api.Conversor;
 import java.util.Scanner;
 
 public class Menu {
+    private final Scanner scanner;
+
     public Menu() {
-        Scanner scanner = new Scanner(System.in);
-        int escolha = 0;
+        this.scanner = new Scanner(System.in);
+        iniciarMenu();
+    }
+
+    private void exibirMenu() {
         String opcoesMenu = """
-                $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-                    Bem vindo/a ao conversor de moedas online!
-                    Digite a opção desejada:
-                
-                    1- Dolar ⇒ Real Brasileiro
-                    2- Real ⇒ Brasileiro
-                    3- Dolar ⇒ Peso Argentino
-                    4- Peso Argentino ⇒ Dolar
-                    5- Dolar ⇒ Peso Colombiano
-                    6- Peso Colombiano ⇒ Dolar
-                    7- Sair
-                $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$%n
-                """;
+            %n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                Bem vindo/a ao conversor de moedas online!
+                Digite a opção desejada:
+            
+                1- Dolar ⇒ Real Brasileiro
+                2- Real Brasileiro ⇒ Dolar
+                3- Dolar ⇒ Peso Argentino
+                4- Peso Argentino ⇒ Dolar
+                5- Dolar ⇒ Peso Colombiano
+                6- Peso Colombiano ⇒ Dolar
+                7- Sair
+            $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            """.formatted();
+        System.out.println(opcoesMenu);
+    }
+
+    private void iniciarMenu() {
+        int escolha = 0;
 
         while (true) {
-            System.out.println(opcoesMenu);
+            exibirMenu();
             escolha = scanner.nextInt();
-            if (escolha <= 0 || escolha > 7) {
-                System.out.println("Opção inválida! Tente novamente.");
 
-                continue;
-            } if (escolha == 1) {
-                System.out.println();
-            } if (escolha == 2) {
-                continue;
-            } if (escolha == 3) {
-                continue;
-            } if (escolha == 4) {
-                continue;
-            } if (escolha == 5) {
-                continue;
-            } if (escolha == 6) {
-                continue;
-            } if (escolha == 7) {
-                System.out.println("Obrigado por usar o Conversor Online! :D");
+            if (escolha == 7) {
                 break;
             }
 
+            if (escolha < 1 || escolha > 7) {
+                System.out.println("Opção inválida! Tente novamente.");
+                continue;
+            }
+
+            System.out.print("\nDigite o valor a ser convertido: ");
+            double valor = scanner.nextDouble();
+
+            try {
+                double resultado = 0;
+                String moedaOrigem = "";
+                String moedaDestino = switch (escolha) {
+                    case 1 -> {
+                        moedaOrigem = "USD";
+                        yield "BRL";
+                    }
+                    case 2 -> {
+                        moedaOrigem = "BRL";
+                        yield "USD";
+                    }
+                    case 3 -> {
+                        moedaOrigem = "USD";
+                        yield "ARS";
+                    }
+                    case 4 -> {
+                        moedaOrigem = "ARS";
+                        yield "USD";
+                    }
+                    case 5 -> {
+                        moedaOrigem = "USD";
+                        yield "COP";
+                    }
+                    case 6 -> {
+                        moedaOrigem = "COP";
+                        yield "USD";
+                    }
+                    default -> "";
+                };
+
+                resultado = Conversor.converterMoeda(moedaOrigem, moedaDestino, valor);
+                System.out.printf("%nValor convertido: %.2f %s = %.2f %s%n",
+                    valor, moedaOrigem, resultado, moedaDestino);
+
+            } catch (Exception e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
         }
+
         scanner.close();
     }
 }

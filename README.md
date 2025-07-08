@@ -34,6 +34,26 @@ desenvolvido em Java para o desafio técnico da Oracle ONE em parceria com Alura
 - Maven 3.8+
 - Chave de API gratuita do [ExchangeRate-API](https://www.exchangerate-api.com/)
 
+## 🚀 Como Executar
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/geovanedias/desafio-conversor-moedas-alura.git
+```
+
+Configure sua chave de API:
+
+  - Modifique em `/src/main/java/com/alura/conversor/Conversor.java`
+  - Adicione: `API_KEY=sua_chave_api_aqui`
+
+3. Compile e execute:
+
+```bash
+mvn clean package
+java -jar target/conversor-moedas.jar
+```
+
 ## 🖥️ Como Usar
 
 1. Execute o programa
@@ -99,7 +119,7 @@ src/
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para detalhes.
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](https://github.com/geovanedias/desafio-conversor-moedas-alura/blob/main/README.md) para detalhes.
 
 ---
 

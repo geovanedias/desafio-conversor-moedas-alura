@@ -8,7 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class Conversor {
-    private static final String API_KEY = "f13a631450c89e5addff72f9";
+    private static final String API_KEY = "[Sua chave API]";
     private static final String BASE_URL = "https://v6.exchangerate-api.com/v6/" + API_KEY + "/pair/";
     private static final Gson gson = new Gson();
 
